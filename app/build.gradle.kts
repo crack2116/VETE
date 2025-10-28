@@ -6,12 +6,13 @@ plugins {
 
 android {
     namespace = "com.proyecto.vetes"
-    compileSdk = 35
+    compileSdk = 34
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "com.proyecto.vetes"
         minSdk = 31
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
