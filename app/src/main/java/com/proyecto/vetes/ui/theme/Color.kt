@@ -14,3 +14,8 @@ val Pink40 = Color(0xFF7D5260)
 val VetPrimary = Color(0xFF4CAF50)       // Verde veterinario
 val VetSecondary = Color(0xFF81C784)     // Verde claro
 val VetTertiary = Color(0xFF388E3C)       // Verde oscuro
+
+// Modern and Professional Colors
+val ModernPrimary = Color(0xFF0D47A1)      // Dark Blue
+val ModernSecondary = Color(0xFF1976D2)    // Medium Blue
+val ModernTertiary = Color(0xFF42A5F5)     // Light Blue

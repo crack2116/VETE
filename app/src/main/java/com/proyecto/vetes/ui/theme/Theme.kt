@@ -13,17 +13,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = ModernPrimary,
+    secondary = ModernSecondary,
+    tertiary = ModernTertiary
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = VetPrimary,
-    secondary = VetSecondary,
-    tertiary = VetTertiary,
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    primary = ModernPrimary,
+    secondary = ModernSecondary,
+    tertiary = ModernTertiary,
+    background = Color(0xFFFFFFFF),
+    surface = Color(0xFFFFFFFF),
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
@@ -35,7 +35,7 @@ private val LightColorScheme = lightColorScheme(
 fun VETESTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = false, // Desactivado para usar colores veterinarios personalizados
+    dynamicColor: Boolean = false, // Desactivado para usar colores personalizados
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
