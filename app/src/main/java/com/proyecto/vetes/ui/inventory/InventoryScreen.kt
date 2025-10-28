@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.shadow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
@@ -16,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -118,42 +120,66 @@ fun StatCard(totalProducts: Int, lowStockCount: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(
-                color = MaterialTheme.colorScheme.primaryContainer,
-                shape = RoundedCornerShape(16.dp)
+            .padding(vertical = 8.dp)
+            .shadow(
+                elevation = 12.dp,
+                shape = RoundedCornerShape(20.dp)
             )
-            .padding(20.dp),
+            .background(
+                brush = Brush.linearGradient(
+                    colors = listOf(
+                        Color(0xFF4CAF50),
+                        Color(0xFF66BB6A)
+                    )
+                ),
+                shape = RoundedCornerShape(20.dp)
+            )
+            .padding(24.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Column {
+        Box(
+            modifier = Modifier
+                .width(80.dp)
+                .height(80.dp)
+                .background(
+                    color = Color.White.copy(alpha = 0.3f),
+                    shape = RoundedCornerShape(16.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
             Text(
-                text = "Total Productos",
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
-            )
-            Text(
-                text = "$totalProducts",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
+                text = "📊",
+                fontSize = 36.sp
             )
         }
         
-        Column(horizontalAlignment = Alignment.End) {
+        Column {
             Text(
-                text = "Stock Bajo",
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                text = "Total Productos",
+                fontSize = 13.sp,
+                color = Color.White.copy(alpha = 0.8f),
+                fontWeight = FontWeight.Medium
             )
             Text(
-                text = "$lowStockCount",
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = if (lowStockCount > 0) 
-                    MaterialTheme.colorScheme.error 
-                else 
-                    MaterialTheme.colorScheme.primary
+                text = "$totalProducts",
+                fontSize = 38.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.White
             )
+            Spacer(modifier = Modifier.height(8.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    text = "⚠️ Stock bajo: ",
+                    fontSize = 12.sp,
+                    color = Color.White.copy(alpha = 0.9f)
+                )
+                Text(
+                    text = "$lowStockCount",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = if (lowStockCount > 0) Color(0xFFFFEB3B) else Color.White
+                )
+            }
         }
     }
 }
@@ -167,15 +193,39 @@ fun ProductCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() },
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+            .clickable { onClick() }
+            .shadow(
+                elevation = 8.dp,
+                shape = RoundedCornerShape(20.dp),
+                spotColor = Color(0xFF4CAF50).copy(alpha = 0.2f)
+            ),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+        Box(
+            modifier = Modifier.fillMaxWidth()
         ) {
+            // Barra lateral con color
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .width(6.dp)
+                    .background(
+                        color = if (product.stock <= product.minStock) 
+                            Color(0xFFFF5252)
+                        else 
+                            Color(0xFF4CAF50),
+                        shape = RoundedCornerShape(start = 20.dp, end = 0.dp)
+                    )
+            )
+            
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, top = 18.dp, end = 18.dp, bottom = 18.dp)
+            ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -184,45 +234,50 @@ fun ProductCard(
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = product.name,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color(0xFF212121)
                     )
+                    
+                    Spacer(modifier = Modifier.height(4.dp))
                     
                     Text(
                         text = product.category,
-                        fontSize = 14.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        fontSize = 13.sp,
+                        color = Color.Gray,
+                        fontWeight = FontWeight.Medium
                     )
                 }
                 
-                Text(
-                    text = "$${String.format("%.2f", product.price)}",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                Box(
+                    modifier = Modifier
+                        .background(
+                            color = Color(0xFF4CAF50).copy(alpha = 0.15f),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    Text(
+                        text = "$${String.format("%.2f", product.price)}",
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF4CAF50)
+                    )
+                }
             }
             
             Spacer(modifier = Modifier.height(8.dp))
             
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                InfoBadge("Stock: ${product.stock}", 
-                    color = if (product.stock <= product.minStock) 
-                        MaterialTheme.colorScheme.error 
-                    else 
-                        MaterialTheme.colorScheme.tertiary)
-                
-                TextButton(
-                    onClick = onDelete
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = "Eliminar",
-                        color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.bodySmall
-                    )
+                    InfoBadge("📦 Stock: ${product.stock}", 
+                        color = if (product.stock <= product.minStock) 
+                            Color(0xFFFF5252)
+                        else 
+                            Color(0xFF66BB6A))
                 }
             }
         }
@@ -233,15 +288,15 @@ fun ProductCard(
 fun InfoBadge(text: String, color: Color) {
     Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(color.copy(alpha = 0.2f))
-            .padding(horizontal = 12.dp, vertical = 6.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(color.copy(alpha = 0.15f))
+            .padding(horizontal = 14.dp, vertical = 8.dp)
     ) {
         Text(
             text = text,
-            fontSize = 12.sp,
+            fontSize = 13.sp,
             color = color,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Bold
         )
     }
 }
