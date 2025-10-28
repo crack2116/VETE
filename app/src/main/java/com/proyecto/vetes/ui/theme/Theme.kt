@@ -13,15 +13,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = ModernPrimary,
-    secondary = ModernSecondary,
-    tertiary = ModernTertiary
+    primary = PolivetPrimary,
+    secondary = PolivetSecondary,
+    tertiary = PolivetTertiary
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = ModernPrimary,
-    secondary = ModernSecondary,
-    tertiary = ModernTertiary,
+    primary = PolivetPrimary,
+    secondary = PolivetSecondary,
+    tertiary = PolivetTertiary,
     background = Color(0xFFFFFFFF),
     surface = Color(0xFFFFFFFF),
     onPrimary = Color.White,
