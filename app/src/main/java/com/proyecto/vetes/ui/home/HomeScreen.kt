@@ -154,7 +154,7 @@ fun ModernMenuCard(
                         brush = Brush.horizontalGradient(
                             colors = listOf(gradientStart, gradientEnd)
                         ),
-                        shape = RoundedCornerShape(start = 25.dp, end = 0.dp)
+                        shape = RoundedCornerShape(topStart = 25.dp, topEnd = 0.dp, bottomStart = 25.dp, bottomEnd = 0.dp)
                     )
             )
             

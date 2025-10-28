@@ -217,7 +217,7 @@ fun ProductCard(
                             Color(0xFFFF5252)
                         else 
                             Color(0xFF4CAF50),
-                        shape = RoundedCornerShape(start = 20.dp, end = 0.dp)
+                        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 0.dp, bottomStart = 20.dp, bottomEnd = 0.dp)
                     )
             )
             
