@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -215,14 +214,13 @@ fun ProductCard(
                     else 
                         MaterialTheme.colorScheme.tertiary)
                 
-                IconButton(
-                    onClick = onDelete,
-                    modifier = Modifier.size(40.dp)
+                TextButton(
+                    onClick = onDelete
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Eliminar",
-                        tint = MaterialTheme.colorScheme.error
+                    Text(
+                        text = "Eliminar",
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
                     )
                 }
             }

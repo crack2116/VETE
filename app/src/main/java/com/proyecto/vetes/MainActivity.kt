@@ -6,10 +6,19 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.proyecto.vetes.repository.ProductRepository
+import com.proyecto.vetes.repository.SaleRepository
+import com.proyecto.vetes.viewmodel.ProductViewModel
+import com.proyecto.vetes.viewmodel.ProductViewModelFactory
+import com.proyecto.vetes.viewmodel.SaleViewModel
+import com.proyecto.vetes.viewmodel.SaleViewModelFactory
 import com.proyecto.vetes.ui.home.HomeScreen
 import com.proyecto.vetes.ui.inventory.AddEditProductScreen
 import com.proyecto.vetes.ui.inventory.InventoryScreen
@@ -45,10 +54,10 @@ fun VetESApp(
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
-    val productViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+    val productViewModel: ProductViewModel = viewModel(
         factory = ProductViewModelFactory(productRepository)
     )
-    val saleViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+    val saleViewModel: SaleViewModel = viewModel(
         factory = SaleViewModelFactory(saleRepository)
     )
     
@@ -96,8 +105,8 @@ fun VetESApp(
         composable(
             route = "edit_product/{productId}",
             arguments = listOf(
-                androidx.navigation.NavArgument("productId") {
-                    type = androidx.navigation.NavType.LongType
+                navArgument("productId") {
+                    type = NavType.LongType
                 }
             )
         ) { backStackEntry ->
